@@ -1,83 +1,20 @@
-// Edit these sample products and add your real Stripe Payment Links.
+// Edit these sample listings. Add a hosted checkout URL only for products you are authorized to sell.
 const products = [
-  {
-    name: "Digital Starter Pack",
-    category: "STARTER KIT",
-    description: "A sample listing. Replace this with a clear description of your real product.",
-    price: "$9.99",
-    symbol: "✦",
-    checkoutUrl: ""
-  },
-  {
-    name: "Creator Toolkit",
-    category: "TOOLKIT",
-    description: "Explain exactly what files, features, and formats the customer receives.",
-    price: "$14.99",
-    symbol: "⌘",
-    checkoutUrl: ""
-  },
-  {
-    name: "Premium Bundle",
-    category: "BEST VALUE",
-    description: "Describe what's included, any requirements, and how delivery works.",
-    price: "$24.99",
-    symbol: "N",
-    checkoutUrl: ""
-  }
+ {name:"Digital Product One",mark:"N",description:"Add a short, accurate description of what the customer receives.",features:["Digital product","Clear usage instructions","Customer support"],price:"$4.00",checkoutUrl:""},
+ {name:"Digital Product Two",mark:"F",description:"Explain exactly what files, features, and formats are included.",features:["Digital product","Simple setup","Customer support"],price:"$4.00",checkoutUrl:""}
 ];
-
-const grid = document.getElementById("product-grid");
-
-products.forEach((product) => {
-  const card = document.createElement("article");
-  card.className = "product-card";
-
-  const visual = document.createElement("div");
-  visual.className = "product-visual";
-  const symbol = document.createElement("span");
-  symbol.className = "product-symbol";
-  symbol.textContent = product.symbol;
-  visual.appendChild(symbol);
-
-  const info = document.createElement("div");
-  info.className = "product-info";
-
-  const category = document.createElement("div");
-  category.className = "product-tag";
-  category.textContent = product.category;
-
-  const title = document.createElement("h3");
-  title.textContent = product.name;
-
-  const description = document.createElement("p");
-  description.textContent = product.description;
-
-  const bottom = document.createElement("div");
-  bottom.className = "product-bottom";
-
-  const price = document.createElement("span");
-  price.className = "price";
-  price.textContent = product.price;
-
-  const button = document.createElement("button");
-  button.className = "buy-button";
-  button.textContent = product.checkoutUrl ? "BUY NOW ↗" : "CHECKOUT SETUP";
-  button.disabled = !product.checkoutUrl;
-  button.title = product.checkoutUrl
-    ? "Continue to secure checkout"
-    : "Add a real payment link in script.js before publishing.";
-
-  button.addEventListener("click", () => {
-    if (product.checkoutUrl) {
-      // Only use a real payment link created in your own payment-provider account.
-      window.location.href = product.checkoutUrl;
-    }
-  });
-
-  bottom.append(price, button);
-  info.append(category, title, description, bottom);
-  card.append(visual, info);
-  grid.appendChild(card);
-});
-
-document.getElementById("year").textContent = new Date().getFullYear();
+const root=document.getElementById("products");
+for(const p of products){
+ const card=document.createElement("article");card.className="product";
+ const art=document.createElement("div");art.className="art";art.textContent=p.mark;
+ const info=document.createElement("div");const h=document.createElement("h3");h.textContent=p.name;
+ const desc=document.createElement("p");desc.textContent=p.description;const ul=document.createElement("ul");
+ p.features.forEach(f=>{const li=document.createElement("li");li.textContent=f;ul.appendChild(li)});
+ info.append(h,desc,ul);
+ const bottom=document.createElement("div");bottom.className="bottom";
+ const price=document.createElement("span");price.className="price";price.textContent=p.price;
+ const btn=document.createElement("button");btn.className="buy";btn.textContent=p.checkoutUrl?"Buy now":"Checkout not set up";btn.disabled=!p.checkoutUrl;
+ btn.addEventListener("click",()=>{if(p.checkoutUrl)location.href=p.checkoutUrl});
+ bottom.append(price,btn);card.append(art,info,bottom);root.appendChild(card);
+}
+document.getElementById("year").textContent=new Date().getFullYear();
